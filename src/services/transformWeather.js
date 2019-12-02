@@ -11,7 +11,6 @@ import {
 
 const getWeatherState = weather => {
     const {id} = weather;
-    console.log(id);
         if (id < 300){
             return THUNDER;
         }else if(id < 400){
