@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import {Paper,AppBar,Typography,Toolbar} from '@material-ui/core';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {setCity} from './actions';
+
+//import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 const cities = [
   'Quetzaltenango,gt',
   'San Marcos,gt',
   'Guatemala City,gt'
 ];
+
+
 class App extends Component {
   constructor(){
     super();
@@ -19,6 +24,7 @@ class App extends Component {
   handleSelectionLocation = city => {
     this.setState({city});
     console.log(`handleSelectionLocation ${city}`);
+    this.props.setCity(city);
   }
   render() {
     const {city} = this.state;
@@ -55,4 +61,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToPropsActions = dispatch => ({
+  setCity: value => dispatch(setCity(value))
+});
+
+// const mapStateToProps = (state) => ({
+//   sample: state.sample
+// });
+const AppConnected = connect(null,mapDispatchToPropsActions)(App);
+
+export default AppConnected;
